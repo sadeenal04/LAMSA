@@ -17,7 +17,7 @@ function Create() {
     "Bedroom",
     "Kitchen",
     "Bathroom",
-    "Library",
+    "Office",
     "My Own Space",
   ];
 
