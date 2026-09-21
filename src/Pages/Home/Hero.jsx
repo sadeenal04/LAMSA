@@ -1,6 +1,9 @@
 import heroImage from "../../assets/hero.png";
 import "../../index.css";
+import { useNavigate } from "react-router-dom";
+
 function Hero() {
+  const navigate = useNavigate();
   return (
     <div className="container hero">
       <div className="row py-3">
@@ -11,7 +14,9 @@ function Hero() {
           <p className="hero-subtitle mb-5">
             Design, personalize, and make it yours.
           </p>
-          <button className="hero-btn">Start Creating</button>
+          <button className="hero-btn" onClick={() => navigate("/create")}>
+            Start Creating
+          </button>
         </div>
         <div className="col-md-4">
           <img src={heroImage} alt="Hero" className="hero-image" />

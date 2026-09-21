@@ -7,7 +7,7 @@ function Navbar({ style }) {
       style={style}
     >
       <div className=" px-5 py-3 d-flex align-items-center w-100">
-        <a className="navbar-brand lamsa-brand" href="#">
+        <a className="navbar-brand lamsa-brand" href="/">
           LAMSA
         </a>
         <div className=" ms-auto d-flex gap-4">
@@ -21,10 +21,10 @@ function Navbar({ style }) {
           <Link to="/create" className="nav-link">
             Create
           </Link>
-          <a className="nav-link" href="#">
-            Contact
-          </a>
 
+          <Link to="/contact" className="nav-link">
+            Contact
+          </Link>
           <a className="nav-link" href="#">
             Login
           </a>
