@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../index.css";
 import modern1 from "../../assets/modern1.png";
 import modern2 from "../../assets/modern2.png";
@@ -26,7 +27,7 @@ import industrial5 from "../../assets/industrial5.png";
 import industrial6 from "../../assets/industrial6.png";
 function Styles() {
   const [style, setstyle] = useState("Modern");
-
+  const navigate = useNavigate();
   const design = {
     Modern: [modern1, modern3, modern5, modern4, modern6, modern2],
 
@@ -104,7 +105,12 @@ function Styles() {
 
           <p>Create a design as you imagine it in your mind.</p>
 
-          <button className="explore-cta-btn">Start Creating</button>
+          <button
+            className="explore-cta-btn"
+            onClick={() => navigate("/create")}
+          >
+            Start Creating
+          </button>
         </div>
       </div>
     </section>

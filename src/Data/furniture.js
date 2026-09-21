@@ -1,7 +1,33 @@
 import modernsofa from "../assets/modernsofa.png";
+import modernsetsofa1 from "../assets/modernsetsofa1.png";
+import modernsetsofa2 from "../assets/modernsetsofa2.png";
+import modernsetsofa3 from "../assets/modernsetsofa3.png";
+import modernblanket from "../assets/modernblanket.png";
+import modernpillow from "../assets/modernpillow.png";
+import modernsetsofa4 from "../assets/modernsetsofa4.png";
+const modernsetsofa1Model = "/models/modernsetsofa1.glb";
+const modernsetsofa4Model = "/models/modernsetsofa4.glb";
+
 const furniture = {
   "Sofa Set": {
-    Modern: [],
+    Modern: [
+      {
+        preview: modernsetsofa1,
+        model: "/models/modernsetsofa1.glb",
+      },
+      {
+        preview: modernsetsofa2,
+        model: "/models/modernsetsofa2.glb",
+      },
+      {
+        preview: modernsetsofa3,
+        model: modernsetsofa1Model,
+      },
+      {
+        preview: modernsetsofa4,
+        model: modernsetsofa4Model,
+      },
+    ],
     Classic: [],
     Bohemian: [],
     Industrial: [],
@@ -259,13 +285,6 @@ const furniture = {
     Industrial: [],
   },
 
-  "Dining Chair": {
-    Modern: [],
-    Classic: [],
-    Bohemian: [],
-    Industrial: [],
-  },
-
   Bathtub: {
     Modern: [],
     Classic: [],
@@ -484,14 +503,14 @@ const furniture = {
   },
 
   Pillows: {
-    Modern: [],
+    Modern: [modernpillow],
     Classic: [],
     Bohemian: [],
     Industrial: [],
   },
 
   Blanket: {
-    Modern: [],
+    Modern: [modernblanket],
     Classic: [],
     Bohemian: [],
     Industrial: [],
@@ -582,13 +601,6 @@ const furniture = {
   },
 
   "Desk Organizer": {
-    Modern: [],
-    Classic: [],
-    Bohemian: [],
-    Industrial: [],
-  },
-
-  Flowers: {
     Modern: [],
     Classic: [],
     Bohemian: [],
