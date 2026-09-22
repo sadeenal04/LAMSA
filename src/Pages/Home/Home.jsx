@@ -1,5 +1,5 @@
 import About from "./About/About";
-import Findstyle from "./Findstyle";
+import Findstyle from "./FindStyle";
 import Footer from "./Footer";
 import Hero from "./Hero";
 import Howwork from "./Howwork";
