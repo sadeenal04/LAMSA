@@ -201,7 +201,7 @@ body {
 }
 
 .style-track > div {
-  flex: 0 0 300px;
+  flex: 0 0 325px;
 }
 
 @keyframes spin {
@@ -342,7 +342,7 @@ body {
   margin-bottom: 35px;
 }
 
-.social-icons a {
+.social-icons span {
   color: #533a2d;
   font-size: 22px;
   transition:
@@ -350,7 +350,7 @@ body {
     transform 0.3s ease;
 }
 
-.social-icons a:hover {
+.social-icons span:hover {
   color: #694f41;
   transform: scale(1.2) translateY(-3px);
 }

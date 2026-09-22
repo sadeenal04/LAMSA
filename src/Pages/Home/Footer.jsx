@@ -12,33 +12,20 @@ function Footer() {
         <div className="footer-links">
           <Link to="/">Home</Link>
           <Link to="/explore">Explore</Link>
-          <a href="#">Contact</a>
+          <Link to="/contact">Contact</Link>
         </div>
-
         <div className="social-icons">
-          <a
-            href="https://www.facebook.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <span>
             <i className="bi bi-facebook"></i>
-          </a>
+          </span>
 
-          <a
-            href="https://www.twitter.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <span>
             <i className="bi bi-twitter-x"></i>
-          </a>
+          </span>
 
-          <a
-            href="https://www.instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <span>
             <i className="bi bi-instagram"></i>
-          </a>
+          </span>
         </div>
       </div>
 
