@@ -77,6 +77,8 @@ function Room3D({
   onColorChange,
   onDuplicate,
   onDelete,
+  onReset,
+  onHeight,
 }) {
   const [isDragging, setIsDragging] = useState(false);
   const [hiddenWall, setHiddenWall] = useState(null);
@@ -85,9 +87,25 @@ function Room3D({
     (item) => item.id === selectedFurnitureId,
   );
 
+  const handleDownload = () => {
+    const canvas = document.querySelector(".room-3d canvas");
+
+    if (!canvas) {
+      return;
+    }
+
+    const image = canvas.toDataURL("image/png");
+
+    const link = document.createElement("a");
+    link.download = "lamsa-design.png";
+    link.href = image;
+    link.click();
+  };
+
   return (
     <div className="room-3d">
       <Canvas
+        gl={{ preserveDrawingBuffer: true }}
         camera={{
           position: [7, 4, 7],
           fov: 55,
@@ -101,7 +119,7 @@ function Room3D({
         <RoomCamera setHiddenWall={setHiddenWall} />
 
         {items.map((item) => {
-          if (!item.image.endsWith(".glb")) {
+          if (!item.image || !item.image.endsWith(".glb")) {
             return null;
           }
 
@@ -113,6 +131,7 @@ function Room3D({
               position={item.position}
               rotation={item.rotation}
               scale={item.scale}
+              height={item.height}
               color={item.color}
               selectedFurnitureId={selectedFurnitureId}
               onSelect={setSelectedFurnitureId}
@@ -132,35 +151,99 @@ function Room3D({
         />
       </Canvas>
 
+      <div className="room-actions">
+        <button type="button" className="reset-design-btn" onClick={onReset}>
+          Reset
+        </button>
+
+        <button
+          type="button"
+          className="download-design-btn"
+          onClick={handleDownload}
+        >
+          Download
+        </button>
+      </div>
+
       {selectedFurniture && (
         <div className="furniture-toolbar">
-          <button type="button" onClick={() => onRotate(Math.PI / 12)}>
+          <button
+            type="button"
+            onClick={() => onRotate(Math.PI / 12)}
+            aria-label="Rotate left"
+            title="Rotate left"
+          >
             ↶
           </button>
 
-          <button type="button" onClick={() => onRotate(-Math.PI / 12)}>
+          <button
+            type="button"
+            onClick={() => onRotate(-Math.PI / 12)}
+            aria-label="Rotate right"
+            title="Rotate right"
+          >
             ↷
           </button>
 
-          <button type="button" onClick={() => onResize(-0.1)}>
+          <button
+            type="button"
+            onClick={() => onResize(-0.1)}
+            aria-label="Decrease size"
+            title="Decrease size"
+          >
             −
+          </button>
+
+          <button
+            type="button"
+            onClick={() => onHeight(0.2)}
+            aria-label="Raise furniture"
+            title="Raise furniture"
+          >
+            ↑
           </button>
 
           <input
             type="color"
             value={selectedFurniture.color}
             onChange={(event) => onColorChange(event.target.value)}
+            aria-label="Change furniture color"
+            title="Change furniture color"
           />
 
-          <button type="button" onClick={() => onResize(0.1)}>
+          <button
+            type="button"
+            onClick={() => onHeight(-0.2)}
+            aria-label="Lower furniture"
+            title="Lower furniture"
+          >
+            ↓
+          </button>
+
+          <button
+            type="button"
+            onClick={() => onResize(0.1)}
+            aria-label="Increase size"
+            title="Increase size"
+          >
             +
           </button>
 
-          <button type="button" onClick={onDuplicate}>
+          <button
+            type="button"
+            onClick={onDuplicate}
+            aria-label="Duplicate furniture"
+            title="Duplicate furniture"
+          >
             ⧉
           </button>
 
-          <button type="button" onClick={onDelete}>
+          <button
+            type="button"
+            onClick={onDelete}
+            aria-label="Delete furniture"
+            title="Delete furniture"
+          >
             ×
           </button>
         </div>

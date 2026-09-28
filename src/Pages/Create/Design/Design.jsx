@@ -1,5 +1,5 @@
-import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import spaces from "../../../Data/spaces";
 import furniture from "../../../Data/furniture";
 import SideBar from "./Sidebar";
@@ -11,14 +11,28 @@ import "../../../index.css";
 
 function Design() {
   const location = useLocation();
+  const navigate = useNavigate();
   const design = location.state;
+
+  useEffect(() => {
+    if (!design?.space || !design?.style) {
+      navigate("/create", { replace: true });
+    }
+  }, [design, navigate]);
+
+  if (!design?.space || !design?.style) {
+    return null;
+  }
+
   const availableItems = spaces[design.space];
 
   const [selectedItem, setSelectedItem] = useState("");
   const [items, setItems] = useState([]);
   const [selectedFurnitureId, setSelectedFurnitureId] = useState(null);
 
-  const itemOptions = selectedItem ? furniture[selectedItem][design.style] : [];
+  const itemOptions = selectedItem
+    ? furniture[selectedItem]?.[design.style] || []
+    : [];
 
   const handleAddItem = (option) => {
     const newItem = {
@@ -27,13 +41,25 @@ function Design() {
       position: [0, -2, 0],
       rotation: [0, 0, 0],
       scale: [1, 1, 1],
+      height: 0,
       color: "#ffffff",
     };
 
     setItems((prevItems) => [...prevItems, newItem]);
     setSelectedFurnitureId(newItem.id);
   };
-
+  const handleHeight = (amount) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === selectedFurnitureId
+          ? {
+              ...item,
+              height: Math.max(0, (item.height || 0) + amount),
+            }
+          : item,
+      ),
+    );
+  };
   const handleMove = (id, position) => {
     setItems((prevItems) =>
       prevItems.map((item) =>
@@ -56,6 +82,11 @@ function Design() {
       prevItems.filter((item) => item.id !== selectedFurnitureId),
     );
 
+    setSelectedFurnitureId(null);
+  };
+
+  const handleReset = () => {
+    setItems([]);
     setSelectedFurnitureId(null);
   };
 
@@ -156,6 +187,8 @@ function Design() {
             onColorChange={handleColorChange}
             onDuplicate={handleDuplicate}
             onDelete={handleDelete}
+            onReset={handleReset}
+            onHeight={handleHeight}
           />
         </div>
       </div>

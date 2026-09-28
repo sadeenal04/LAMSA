@@ -1,4 +1,4 @@
-import "../../src/index.css";
+import "../index.css";
 function Copyright({ style }) {
   return (
     <div className="copyright text-center py-3" style={style}>

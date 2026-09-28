@@ -8,9 +8,9 @@ function Options({ selectedItem, itemOptions, onAddItem }) {
       <h3>Choose {selectedItem}</h3>
 
       <div className="options-list">
-        {itemOptions.map((option) => (
+        {itemOptions.map((option, index) => (
           <button
-            key={option.model}
+            key={option.model || index}
             type="button"
             onClick={() => onAddItem(option)}
           >

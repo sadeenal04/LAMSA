@@ -47,23 +47,34 @@ function Create() {
 
           {/* Space Selection */}
           <div className="row g-4 mt-4">
-            {spaces.map((space) => (
-              <div className="col-md-4" key={space}>
-                <button
-                  className={`create-space ${
-                    design.space === space ? "active" : ""
-                  }`}
-                  onClick={() =>
-                    setDesign({
-                      ...design,
-                      space: space,
-                    })
-                  }
-                >
-                  {space}
-                </button>
-              </div>
-            ))}
+            {spaces.map((space) => {
+              const isComingSoon = space === "Kitchen";
+
+              return (
+                <div className="col-md-4" key={space}>
+                  <button
+                    className={`create-space ${
+                      design.space === space ? "active" : ""
+                    } ${isComingSoon ? "coming-soon" : ""}`}
+                    disabled={isComingSoon}
+                    onClick={() => {
+                      if (isComingSoon) return;
+
+                      setDesign({
+                        ...design,
+                        space: space,
+                      });
+                    }}
+                  >
+                    {space}
+
+                    {isComingSoon && (
+                      <span className="coming-soon-text">Coming Soon</span>
+                    )}
+                  </button>
+                </div>
+              );
+            })}
           </div>
 
           {/* Style Selection */}

@@ -9,6 +9,7 @@ function Furniture3D({
   position = [0, -2, 0],
   rotation = [0, 0, 0],
   scale = [1, 1, 1],
+  height = 0,
   color = "#ffffff",
   selectedFurnitureId,
   onSelect,
@@ -18,6 +19,8 @@ function Furniture3D({
   const { scene } = useGLTF(image);
   const { camera, gl } = useThree();
 
+  const clonedScene = useMemo(() => scene.clone(true), [scene]);
+
   const isSelected = id === selectedFurnitureId;
 
   const isDragging = useRef(false);
@@ -26,7 +29,7 @@ function Furniture3D({
   const dragPlane = useRef(new THREE.Plane(new THREE.Vector3(0, 1, 0), 2.5));
 
   const modelData = useMemo(() => {
-    const box = new THREE.Box3().setFromObject(scene);
+    const box = new THREE.Box3().setFromObject(clonedScene);
 
     const size = new THREE.Vector3();
     const center = new THREE.Vector3();
@@ -39,7 +42,7 @@ function Furniture3D({
       size,
       center,
     };
-  }, [scene]);
+  }, [clonedScene]);
 
   const normalizedScale = useMemo(() => {
     const largestHorizontal = Math.max(modelData.size.x, modelData.size.z);
@@ -52,12 +55,12 @@ function Furniture3D({
   }, [modelData]);
 
   useEffect(() => {
-    scene.traverse((object) => {
+    clonedScene.traverse((object) => {
       if (object.isMesh && object.material) {
         object.material.color.set(color);
       }
     });
-  }, [scene, color]);
+  }, [clonedScene, color]);
 
   const getMousePositionOnFloor = (event) => {
     const rect = gl.domElement.getBoundingClientRect();
@@ -121,27 +124,27 @@ function Furniture3D({
     const roomMinZ = -6;
     const roomMaxZ = 6;
 
-    const sofaWidth = 3;
-    const sofaDepth = 2;
+    const width = modelData.size.x * normalizedScale * scale[0];
 
-    const rotated = Math.abs(Math.sin(rotation[1])) > 0.5;
+    const depth = modelData.size.z * normalizedScale * scale[2];
 
-    const halfWidth = ((rotated ? sofaDepth : sofaWidth) * scale[0]) / 2;
+    const rotationY = rotation[1];
 
-    const halfDepth = ((rotated ? sofaWidth : sofaDepth) * scale[2]) / 2;
+    const halfWidth =
+      (Math.abs(Math.cos(rotationY)) * width +
+        Math.abs(Math.sin(rotationY)) * depth) /
+      2;
 
-    const leftWallGap = 1.5;
-    const rightWallGap = 0;
-    const backWallGap = 0;
-    const frontWallGap = 0;
+    const halfDepth =
+      (Math.abs(Math.sin(rotationY)) * width +
+        Math.abs(Math.cos(rotationY)) * depth) /
+      2;
 
-    const minX = roomMinX + halfWidth + leftWallGap;
+    const minX = roomMinX + halfWidth;
+    const maxX = roomMaxX - halfWidth;
 
-    const maxX = roomMaxX - halfWidth - rightWallGap;
-
-    const minZ = roomMinZ + halfDepth + backWallGap;
-
-    const maxZ = roomMaxZ - halfDepth - frontWallGap;
+    const minZ = roomMinZ + halfDepth;
+    const maxZ = roomMaxZ - halfDepth;
 
     const clampedX = THREE.MathUtils.clamp(newX, minX, maxX);
 
@@ -171,7 +174,7 @@ function Furniture3D({
   const floorY = -2.5;
   const normalizedBottom = -0.5;
 
-  const groupY = floorY - normalizedBottom * scale[1];
+  const groupY = floorY - normalizedBottom * scale[1] + height;
 
   return (
     <group
@@ -191,7 +194,7 @@ function Furniture3D({
           -modelData.center.z,
         ]}
       >
-        <primitive object={scene} />
+        <primitive object={clonedScene} />
       </group>
 
       {isSelected && (

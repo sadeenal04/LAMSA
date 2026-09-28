@@ -1,16 +1,67 @@
-# React + Vite
+# LAMSA
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+LAMSA is a frontend interior design web application that allows users to create and personalize their own spaces.
 
-Currently, two official plugins are available:
+Users can choose a space and design style, browse available furniture and decor, and arrange 3D items inside an interactive design studio.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Live Demo
 
-## React Compiler
+[View LAMSA Live](https://lamsa-xi.vercel.app)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- Choose a space and interior style
+- Browse furniture and decor based on the selected style
+- Add 3D furniture and accessories to the design
+- Move, rotate, resize, recolor, duplicate, and delete items
+- Adjust furniture height
+- Reset the design
+- Download the created design as an image
+- Explore different interior styles
+- Responsive design for desktop and mobile
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Technologies
+
+- React
+- Vite
+- JavaScript
+- Bootstrap
+- React Router
+- Three.js
+- React Three Fiber
+- Drei
+- Playwright
+
+## Getting Started
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Run the development server
+
+```bash
+npm run dev
+```
+
+The application will be available at:
+
+`http://localhost:5173`
+
+### Build for production
+
+```bash
+npm run build
+```
+
+### Run tests
+
+```bash
+npx playwright test
+```
+
+## Project
+
+LAMSA was built as a frontend project focused on interactive interior design and 3D space customization.
